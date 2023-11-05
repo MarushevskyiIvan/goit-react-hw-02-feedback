@@ -14,7 +14,7 @@ class Feedback extends Component {
   addFeedback = evt => {
     const { name } = evt.target;
     this.setState(prevState => {
-      return { [name]: prevState[name] + 1, visibleStatistics: true };
+      return { [name]: prevState[name] + 1 };
     });
   };
 
@@ -29,19 +29,16 @@ class Feedback extends Component {
   };
 
   render() {
-    const { good, neutral, bad, visibleStatistics } = this.state;
-
+    const { good, neutral, bad } = this.state;
+    const total = this.countTotalFeedback();
     return (
       <div>
         <Section title="please leave the feedback" />
-        <FeedbackOptions
-          options={['good', 'neutral', 'bad']}
-          addFeedback={this.addFeedback}
-        />
+        <FeedbackOptions options={this.state} addFeedback={this.addFeedback} />
         <Section />
 
         <Section title="statistics" />
-        {!visibleStatistics ? (
+        {total === 0 ? (
           <Notification message={'there is no feedback'} />
         ) : (
           <Statistics
