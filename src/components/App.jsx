@@ -11,8 +11,7 @@ class Feedback extends Component {
     bad: 0,
   };
 
-  addFeedback = evt => {
-    const { name } = evt.target;
+  addFeedback = name => {
     this.setState(prevState => {
       return { [name]: prevState[name] + 1 };
     });
@@ -34,7 +33,10 @@ class Feedback extends Component {
     return (
       <div>
         <Section title="please leave the feedback" />
-        <FeedbackOptions options={this.state} addFeedback={this.addFeedback} />
+        <FeedbackOptions
+          options={Object.keys(this.state)}
+          addFeedback={this.addFeedback}
+        />
         <Section />
 
         <Section title="statistics" />
